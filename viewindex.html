@@ -1,184 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ZaraFix Main Page</title>
+  <title>ZaraFix - Dashboard Links</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
-
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #fceabb, #f8b500);
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: #f1f1f1;
-    }
-
-    .header {
-      background: linear-gradient(to right, #673ab7, #512da8);
-      color: white;
-      padding: 15px;
+      padding: 0;
       text-align: center;
     }
 
     .container {
-      padding: 10px;
+      margin-top: 60px;
     }
 
-    .dropdown {
-      display: none;
-      background: white;
-      border-radius: 10px;
-      padding: 10px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
+    h2 {
+      color: #fff;
+      margin-bottom: 30px;
     }
 
-    .dropdown a {
+    .dropdown button {
       display: block;
-      padding: 8px 12px;
-      margin: 5px 0;
+      width: 90%;
+      max-width: 300px;
+      margin: 10px auto;
       background: linear-gradient(to right, #ff6f00, #ff9100);
       color: white;
-      text-align: center;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
-
-    .dropdown a:hover {
-      transform: scale(1.05);
-    }
-
-    .login-btn {
-      display: block;
-      margin: 20px auto;
-      padding: 12px 25px;
-      background: linear-gradient(to right, #03a9f4, #0288d1);
       border: none;
-      border-radius: 25px;
-      color: white;
-      font-weight: bold;
-      font-size: 16px;
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    }
-
-    .logout-btn {
-      display: none;
-      margin: 10px auto;
-      padding: 10px 25px;
-      background: #e53935;
-      color: white;
-      border: none;
-      border-radius: 20px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 15px;
-    }
-
-    .card {
-      background: white;
-      padding: 15px;
+      padding: 12px;
       border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.3s;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .card:hover {
-      transform: scale(1.03);
+    .dropdown button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #ff9100, #ff6f00);
     }
 
-    @media screen and (max-width: 500px) {
-      .dropdown a {
-        font-size: 14px;
-        padding: 10px;
-      }
+    #logout {
+      background: #c62828;
+    }
+
+    #logout:hover {
+      background: #e53935;
     }
   </style>
 </head>
 <body>
-
-  <div class="header">
-    👋 Welcome to ZaraFix
-  </div>
-
-  <div class="container">
-    <button id="loginBtn" class="login-btn">Login with Google</button>
-    <button id="logoutBtn" class="logout-btn">Logout</button>
-
-    <div class="dropdown" id="menu">
-      <a href="#">📋 Recharge Request</a>
-      <a href="#">📋 Service Request</a>
-      <a href="#">🧰 Service Provider</a>
-      <a href="#">🛠️ Admin Dashboard</a>
-      <a href="#">💼 Real Estate</a>
-      <a href="#">💍 Marriage Bureau</a>
-      <a href="#">🚑 Ambulance</a>
-      <a href="#">🏪 Shop Listings</a>
-    </div>
-
-    <div class="products" id="products">
-      <!-- Product cards will go here -->
-      <div class="card">
-        <h3>Product 1</h3>
-        <p>Details...</p>
-      </div>
-      <div class="card">
-        <h3>Product 2</h3>
-        <p>Details...</p>
-      </div>
-      <!-- Add more cards dynamically -->
+  <div class="container" id="mainContent" style="display: none;">
+    <h2>👋 Welcome to ZaraFix</h2>
+    <div class="dropdown">
+      <button onclick="goTo('recharge.html')">📋 Recharge Request</button>
+      <button onclick="goTo('service-request.html')">📋 Service Request</button>
+      <button onclick="goTo('posterDashboard.html')">🧰 Service Provider</button>
+      <button onclick="goTo('admin.html')">🛠️ Admin Dashboard</button>
+      <button onclick="goTo('realEstate.html')">💼 Real Estate</button>
+      <button onclick="goTo('marriage.html')">💍 Marriage Bureau</button>
+      <button onclick="goTo('ambulance.html')">🚑 Ambulance</button>
+      <button onclick="goTo('shops.html')">🏪 Shop Listings</button>
+      <button id="logout" onclick="logout()">🚪 Logout</button>
     </div>
   </div>
+
+  <!-- Firebase App (the core Firebase SDK) -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 
   <script>
-   const firebaseConfig = {
-  apiKey: "AIzaSyAa8htkfGK-4D3cIQVyxT3o_8WMvghkr-8",
-  authDomain: "loot-lo-15328.firebaseapp.com",
-  databaseURL: "https://loot-lo-15328-default-rtdb.firebaseio.com",
-  projectId: "loot-lo-15328",
-  storageBucket: "loot-lo-15328.appspot.com", // ✅ fixed here
-  messagingSenderId: "677769861892",
-  appId: "1:677769861892:web:760a6c7808f5a753b58e51"
-};
-
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
 
     firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
 
-    const loginBtn = document.getElementById("loginBtn");
-    const logoutBtn = document.getElementById("logoutBtn");
-    const menu = document.getElementById("menu");
-
-    loginBtn.onclick = () => {
-      const provider = new firebase.auth.GoogleAuthProvider();
-      auth.signInWithPopup(provider);
-    };
-
-    logoutBtn.onclick = () => {
-      auth.signOut();
-    };
-
-    auth.onAuthStateChanged(user => {
+    firebase.auth().onAuthStateChanged(user => {
       if (user) {
-        loginBtn.style.display = "none";
-        logoutBtn.style.display = "block";
-        menu.style.display = "block";
+        document.getElementById("mainContent").style.display = "block";
       } else {
-        loginBtn.style.display = "block";
-        logoutBtn.style.display = "none";
-        menu.style.display = "none";
+        window.location.href = "login.html";
       }
     });
+
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "login.html";
+      });
+    }
+
+    function goTo(page) {
+      window.location.href = page;
+    }
   </script>
 </body>
 </html>
